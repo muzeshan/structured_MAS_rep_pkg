@@ -1,0 +1,4 @@
+Artifact: MAS-GAIN structured evidence handoffs replication package
+Version: 1.0.0
+Date: 2026-07-19
+Status: frozen code, clean derived results, corrected RQ3 raw results, and paper source bundled

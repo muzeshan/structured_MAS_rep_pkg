@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite the accompanying MAS-GAIN 2026 paper."
+title: "Structured Evidence Handoffs in LLM Multi-Agent Vulnerability Analysis: Replication Package"
+type: software
+authors:
+  - family-names: Zeshan
+    given-names: Muhammad Umar
+version: 1.0.0
+date-released: 2026-07-19
+license: MIT
+repository-code: "https://github.com/REPLACE-WITH-REPOSITORY"
+abstract: >-
+  Code, configurations, derived clean-run results, raw corrected fault-injection
+  records, analysis scripts, and paper sources for a controlled study of
+  structured evidence handoffs in LLM multi-agent vulnerability analysis.
+keywords:
+  - multi-agent systems
+  - large language models
+  - vulnerability analysis
+  - evidence handoffs
+  - fault injection

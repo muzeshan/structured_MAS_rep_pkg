@@ -1,0 +1,21 @@
+{
+  "selection_method": "First 15 lexicographically sorted eligible pair IDs",
+  "number_of_pairs": 15,
+  "pair_ids": [
+    "secvuleval::10678::34cbd054a25e",
+    "secvuleval::11426::3de3ef49d8f0",
+    "secvuleval::11455::844bead51a69",
+    "secvuleval::11558::15caa2d7c22f",
+    "secvuleval::12062::9bbcb48bac5a",
+    "secvuleval::12103::5d37779c2864",
+    "secvuleval::12255::df553e632a53",
+    "secvuleval::14376::d5e26da1d527",
+    "secvuleval::14485::13f3cb72582d",
+    "secvuleval::14657::d1de238ba3ac",
+    "secvuleval::14943::019747ed7c1d",
+    "secvuleval::15354::9995379f1b42",
+    "secvuleval::16259::8da0d4e65e18",
+    "secvuleval::16499::6e70f4df9661",
+    "secvuleval::17484::312c0856cf56"
+  ]
+}

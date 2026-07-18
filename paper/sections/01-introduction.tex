@@ -1,0 +1,27 @@
+\section{Introduction}
+
+Large language models (LLMs) are increasingly organized as multi-agent systems in which specialized roles exchange intermediate analyses before producing a final software-engineering decision. In security analysis, a natural decomposition assigns one agent to identify a candidate weakness, a second to challenge the evidence, and a third to adjudicate. Such designs promise cross-checking and auditability, but the additional messages also create new failure surfaces: evidence may be omitted, reformulated incorrectly, or propagated without verification.
+
+Most evaluations obscure these process failures by reporting only the final task score. This is problematic because two systems can obtain the same accuracy while differing substantially in cost, traceability, and the path by which an error reaches the final verdict. Recent studies identify inter-agent misalignment and insufficient verification as recurring multi-agent failure modes~\cite{cemri2025mast}; software-engineering surveys similarly call for explicit interaction rules and process-level evaluation~\cite{he2025road}. Protocol-oriented work proposes structured messages as a remedy~\cite{mao2025semap}, while fault-injection studies show that architecture can change whether erroneous messages are challenged or silently propagated~\cite{huang2025resilience,jia2026masfire}. These findings motivate a narrower empirical question: \emph{what changes when vulnerability evidence is exchanged as typed records rather than free-form prose?}
+
+Vulnerability analysis is a useful setting for this question. A plausible but unsupported security claim can be costly, and distinguishing a vulnerable function from its repaired counterpart is difficult for LLMs~\cite{ahmed2025secvuleval,wang2026vulagent}. Structured fields such as line spans, CWE identifiers, guard status, and claim provenance may improve auditability. They may also make a false claim easier to preserve mechanically.
+
+We compare three workflows under matched inference conditions: (i) single-agent self-refinement, (ii) a free-form analyst--refuter--adjudicator system, and (iii) the same role pipeline using schema-constrained evidence handoffs. The main treatment contrast is the free-form versus structured representation; self-refinement provides a three-call baseline without distinct agent identities. We evaluate clean vulnerable--fixed discrimination, machine-checkable evidence lineage, efficiency, and response to controlled upstream faults.
+
+The study addresses the following questions:
+
+\begin{description}
+  \item[RQ1:] How does communication structure influence the effectiveness and efficiency of agentic vulnerability analysis?
+  \item[RQ2:] What evidence-integrity properties do structured handoffs provide across analyst, refuter, and adjudicator stages?
+  \item[RQ3:] How does communication structure influence resilience to upstream verdict and evidence faults?
+\end{description}
+
+Our contributions are:
+\begin{itemize}
+  \item a role-matched comparison that holds the model, input, decoding policy, number of calls, and output ceilings constant while varying handoff representation;
+  \item a process-level analysis separating end-task accuracy from efficiency, format reliability, claim traceability, and refuter behavior;
+  \item a corrected 270-condition fault-injection experiment with matched verdict inversion, evidence deletion, and evidence corruption across all workflows; and
+  \item an empirical trade-off: structured handoffs improve operational discipline and pre-fault verdict restoration, but can amplify the faithful propagation of false evidence.
+\end{itemize}
+
+Because prompt repair and eligibility screening were performed on the same development sample later used for measurement, we explicitly frame the results as exploratory rather than confirmatory.

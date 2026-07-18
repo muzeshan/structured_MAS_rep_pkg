@@ -1,0 +1,23 @@
+\section{Discussion}
+
+\subsection{Structure Changes the Process, Not Necessarily the Decision}
+
+The clean comparison separates three effects that aggregate accuracy alone would conflate. First, the two MAS variants have equal accuracy but are not identical: they disagree on four cases, with two unique successes each. Second, the structured workflow is substantially cheaper. Its constrained messages reduce generation without a corresponding accuracy loss. Third, typed evidence creates complete claim lineage. The treatment therefore changes how the system operates even when it does not shift the final classification boundary.
+
+This distinction matters for multi-agent evaluation. A paper that reports only accuracy would conclude that the two MAS designs are equivalent. A process-level evaluation instead shows that one is more compact and auditable, while neither solves the underlying model's tendency to label repaired code as vulnerable. The very low pair correctness is especially important: high vulnerable recall is achieved by predicting vulnerability for almost every version.
+
+\subsection{Traceability Is Not Verification}
+
+The RQ2 and RQ3 results jointly expose a limitation of structured communication. All final structured claim references are valid, yet the refuter approves 98.3\% of clean claims and 80\% of corrupted-evidence claims. The schema guarantees that a final finding can point to an upstream claim; it does not guarantee that the claim's line range exists or that its CWE follows from the code.
+
+This leads to a practical design principle: \emph{lineage should be paired with independent evidence validation}. A production analyzer should reject out-of-range spans before the next agent sees them, require the refuter to quote counter-evidence, and separate ``schema-valid'' from ``evidence-valid.'' A verifier could deterministically check line bounds and use static analysis, retrieval, tests, or a distinct model to validate source-to-sink paths. Without such mechanisms, structure can make misinformation look authoritative.
+
+\subsection{Fault-Specific Resilience}
+
+The structured pipeline is not uniformly robust or fragile. It resists a direct verdict flip because the downstream stages reread the code and can restore the previous categorical decision. In contrast, a detailed false claim supplies a plausible narrative, CWE, confidence, and location that the structured refuter often accepts. Resilience therefore depends on the fault's semantic depth. Protecting a single label is easier than invalidating a well-formed but unsupported explanation.
+
+The evidence-deletion condition further cautions against treating non-abstention as success. Structured MAS always reconstructs a finding, but only half of the spans overlap the changed-line proxy. In security analysis, confident reconstruction from missing evidence may be more dangerous than an explicit ``insufficient evidence'' response.
+
+\subsection{Implications for MAS-GAIN Research}
+
+The results support evaluating agentic software-engineering systems along at least four axes: task outcome, efficiency, communication integrity, and fault containment. Structured protocols are valuable engineering mechanisms, but their benefits should not be inferred from format compliance. Benchmarks should retain stage-level traces, distinguish refutation from repetition, and inject semantic faults that remain valid at the message-schema level. Negative results are also informative: adding roles and structure did not overcome the base model's false-positive bias in this function-only setting.

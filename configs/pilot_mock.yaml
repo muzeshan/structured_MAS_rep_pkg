@@ -1,0 +1,24 @@
+experiment:
+  prepared_pairs: sample_data/synthetic_pairs.jsonl
+  output_dir: outputs/mock_main
+  systems: [self_refine, freeform_mas, structured_mas]
+  repetitions: 2
+  base_seed: 20260712
+  shard_index: 0
+  num_shards: 1
+  overwrite: true
+  budget:
+    analysis: 100
+    critique: 100
+    adjudication: 140
+  model:
+    backend: mock
+    model_id: mock-security-model
+    revision: test
+    max_input_tokens: 8192
+    batch_size: 8
+    temperature: 0.0
+    top_p: 1.0
+    do_sample: false
+    load_in_4bit: false
+    cache_db: null

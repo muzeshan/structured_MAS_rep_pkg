@@ -1,0 +1,12 @@
+\section{Threats to Validity}
+\label{sec:threats}
+
+\textbf{Internal validity.} The protocol was repaired after observing truncation on the 30-pair development split, and the final clean run reused 29 of those pairs. The study is therefore exploratory and may overestimate formatting reliability. The function-only eligibility exclusion was also made after the pilot exposed repeated failures, although the stated reason---security behavior implemented in unseen callees---is independent of the model's predicted label. We disclose the pair and exclusion rule rather than presenting the sample as held out.
+
+\textbf{Construct validity.} Changed lines are a proxy for vulnerability localization, not exact root-cause ground truth. The RQ2 analysis measures syntactic lineage and refuter decisions; it does not include independent human annotation of semantic preservation. A traceable claim can be false, as RQ3 demonstrates. ``Pre-fault verdict restoration'' measures stability relative to the clean upstream handoff, not correctness relative to the dataset.
+
+\textbf{RQ3 validity.} To apply matched mutations, free-form and self-refinement outputs were canonicalized into a common one-claim text representation, whereas Structured MAS received equivalent JSON. We did not run a no-fault canonicalized control, so fault-condition task-accuracy changes may include a representation effect. We therefore emphasize direct propagation measures such as retained CWE and exact span. Mapping an uncertain verdict to vulnerable during inversion is deterministic but asymmetric.
+
+\textbf{External validity.} The experiment uses one 3B open-weight code model, one deterministic run, 29 C/C++ projects, and function-only context. Results may differ for larger or proprietary models, repository-level tools, other languages, or multi-agent systems with memory and tool use. Agent identities are prompt-defined instances of the same model rather than independently trained agents.
+
+\textbf{Conclusion validity.} The sample is small, especially for 30-condition fault comparisons. We use paired tests and Wilson intervals, but absence of significance is not equivalence. Multiple comparisons are Holm-adjusted when used for principal claims. Runtime was measured on a shared Colab T4 environment and should be interpreted comparatively rather than as an absolute deployment benchmark.

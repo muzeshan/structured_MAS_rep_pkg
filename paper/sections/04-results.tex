@@ -1,0 +1,101 @@
+\section{Results}
+
+\subsection{RQ1: Effectiveness and Efficiency}
+
+Table~\ref{tab:rq1} reports the clean-run results. None of the workflows performs materially above chance. Free-form and Structured MAS both classify 30 of 58 versions correctly (51.7\%), while self-refinement classifies 28 (48.3\%). Cochran's test finds no overall difference ($Q=0.62$, $p=.735$). Free-form and Structured MAS agree on 54 of 58 predictions (93.1\%). In the four disagreements, each is uniquely correct twice; exact McNemar testing therefore returns $p=1.0$.
+
+\begin{table}[t]
+\centering
+\caption{Clean results over 29 vulnerable--fixed pairs. Values are percentages except tokens and seconds.}
+\label{tab:rq1}
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{lrrr}
+\toprule
+Metric & Self & Free & Structured \\
+\midrule
+Accuracy & 48.3 & 51.7 & 51.7 \\
+Vulnerable recall & 79.3 & 96.6 & 96.6 \\
+Fixed accuracy & 17.2 & 6.9 & 6.9 \\
+False-positive rate & 82.8 & 93.1 & 93.1 \\
+Pair correctness & 10.3 & 6.9 & 3.4 \\
+Final parse failures & 0 & 0 & 0 \\
+Mean completion tokens & 708.8 & 714.9 & \textbf{532.0} \\
+Mean latency (s) & 62.2 & 62.6 & \textbf{47.4} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The aggregate accuracy hides a severe class bias. Free-form and Structured MAS correctly identify 28 of 29 vulnerable versions, but label 27 of 29 fixed versions as vulnerable. Self-refinement is slightly less extreme, correctly identifying 23 vulnerable and five fixed versions. Pair correctness is consequently low: three pairs for self-refinement, two for free-form, and one for structured communication.
+
+Structure does produce a clear efficiency difference. Structured MAS uses 25.6\% fewer completion tokens and 24.2\% less mean latency than Free-form MAS. Paired Wilcoxon tests are significant for both completion tokens ($p<10^{-9}$) and latency ($p<10^{-9}$). It is similarly cheaper than self-refinement, while free-form and self-refinement do not differ significantly in either measure.
+
+\noindent\textbf{Answer to RQ1.} Communication structure did not improve classification effectiveness in this sample. It did improve operational efficiency: the structured workflow reached the same version accuracy as free-form collaboration with substantially fewer generated tokens and lower latency.
+
+\subsection{RQ2: Evidence Integrity}
+
+Table~\ref{tab:rq2} summarizes the typed evidence trail. Structured MAS produced 56 analyst claims across 58 records, 58 refuter decisions, and 55 final findings. Every final source-claim reference matched an analyst claim, and no unsupported claim ID appeared. All three structured stages parsed successfully.
+
+\begin{table}[t]
+\centering
+\caption{Machine-checkable evidence integrity in Structured MAS.}
+\label{tab:rq2}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lr}
+\toprule
+Measure & Count / rate \\
+\midrule
+Analyst claims & 56 \\
+Refuter decisions & 58 \\
+Final findings & 55 \\
+Traceable final claim references & 55/55 (100\%) \\
+Unsupported final claim references & 0/55 (0\%) \\
+Supported decisions & 57/58 (98.3\%) \\
+Refuted decisions & 1/58 (1.7\%) \\
+Corrected or uncertain decisions & 0/58 (0\%) \\
+Stage parse failures & 0/174 (0\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+This is strong syntactic integrity but weak evidence of substantive challenge. The refuter supports 57 of 58 decisions, refutes only one, and never issues a correction or an uncertain decision. Moreover, complete lineage coexists with the poor fixed-version accuracy in Table~\ref{tab:rq1}. Machine-checkable provenance therefore shows where a claim came from, not whether it is correct.
+
+\noindent\textbf{Answer to RQ2.} Typed handoffs made final evidence lineage complete and automatically auditable, with no unsupported identifiers or parsing failures. They did not induce meaningful skepticism: almost every upstream claim was supported, including many claims that led to false positives.
+
+\subsection{RQ3: Resilience to Upstream Faults}
+
+Of the 270 corrected fault runs, 269 produced valid final reports. Three downstream stages reported parse errors: two structured refuter outputs were replaced by the protocol fallback and still yielded valid final reports, while one structured adjudication under verdict inversion remained invalid. Table~\ref{tab:rq3} separates the three fault mechanisms; task accuracy under each fault is included for context, but propagation measures are more diagnostic.
+
+\begin{table*}[t]
+\centering
+\caption{Corrected fault-injection outcomes on 30 versions per system and fault. Gold overlap uses SecVulEval changed lines as a localization proxy.}
+\label{tab:rq3}
+\setlength{\tabcolsep}{4.2pt}
+\begin{tabular}{llrrr}
+\toprule
+Fault & Outcome & Self & Free & Structured \\
+\midrule
+\multirow{3}{*}{Verdict inversion}
+ & Pre-fault verdict restored & 83.3 & 43.3 & \textbf{96.7} \\
+ & Injected verdict followed & 10.0 & 26.7 & \textbf{0.0} \\
+ & Task accuracy & 53.3 & 43.3 & 50.0 \\
+\midrule
+\multirow{3}{*}{Evidence deletion}
+ & Final finding generated & 53.3 & 26.7 & \textbf{100.0} \\
+ & Final span overlaps gold proxy & 26.7 & 13.3 & \textbf{50.0} \\
+ & Task accuracy & 43.3 & 43.3 & 50.0 \\
+\midrule
+\multirow{3}{*}{Evidence corruption}
+ & Injected CWE-787 retained & 20.0 & 23.3 & \textbf{93.3} \\
+ & Exact invalid span copied & 10.0 & 10.0 & \textbf{33.3} \\
+ & Task accuracy & 43.3 & 53.3 & 43.3 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+For verdict inversion, Structured MAS restores the pre-fault verdict in 29 of 30 cases (96.7\%, 95\% Wilson CI [83.3, 99.4]) and never follows the injected verdict. Free-form MAS restores only 13 of 30 (43.3\%, CI [27.4, 60.8]). The free-form--structured difference is significant under exact McNemar testing after Holm correction ($p_{\mathrm{adj}}<.001$). Self-refinement also restores the pre-fault verdict frequently (83.3\%), and its difference from Structured MAS is not significant.
+
+Evidence deletion produces a different behavior. Structured MAS generates a final finding and span in all 30 cases even though all upstream claims were removed; 15 spans overlap the changed-line proxy. Free-form and self-refinement generate findings less often. This may be recovery through rereading the code, but it may also be unsupported reconstruction. None of the systems abstains consistently.
+
+Evidence corruption reveals the central failure mode. Structured MAS retains the standardized false CWE-787 claim in 28 of 30 final reports (93.3\%, CI [78.7, 98.2]), compared with seven free-form and six self-refinement reports. The free-form--structured paired difference remains significant after Holm correction ($p_{\mathrm{adj}}<.001$). Structured MAS also copies the exact out-of-range line span in 10 cases, versus three for each alternative, although this span difference does not remain significant after adjustment. Internally, the structured refuter supports the corrupted claim in 24 cases and refutes it in six.
+
+\noindent\textbf{Answer to RQ3.} Structure strongly stabilized the categorical verdict against direct inversion, but it also made semantically corrupted evidence more persistent. The same lineage mechanism that reliably preserved a decision frequently preserved a false CWE and invalid location when the refuter failed to verify them.

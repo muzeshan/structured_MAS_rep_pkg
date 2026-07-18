@@ -1,0 +1,4 @@
+first,second,first_only_correct,second_only_correct,discordant,exact_mcnemar_p
+self_refine,freeform_mas,5,7,12,0.7744140625
+self_refine,structured_mas,4,6,10,0.75390625
+freeform_mas,structured_mas,2,2,4,1.0

@@ -1,0 +1,7 @@
+{
+  "development_pairs.jsonl": "7d206a52190182a48c9a2fdf6dfd95d017c66f4d017a1ba77d9e6eb335dcaecf",
+  "test_pairs.jsonl": "57a7324a6e1b35ee170efbb12c2e6160c23e0e1a11f0da5ed118aa9499324857",
+  "note": "Checksums refer to the prepared SecVulEval files used during development. The full prepared clean-run file is not redistributed in this archive; regenerate it using configs/prepare_secvuleval.yaml and apply scripts/filter_eligible_pairs.py.",
+  "hf_dataset_id": "arag0rn/SecVulEval",
+  "hf_revision": "bde3e7c3225cc61c9ad727133737255428a2ea3d"
+}

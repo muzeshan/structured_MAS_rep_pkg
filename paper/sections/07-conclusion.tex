@@ -1,0 +1,5 @@
+\section{Conclusion}
+
+We investigated whether typed evidence handoffs improve LLM-based multi-agent vulnerability analysis. On 29 vulnerable--fixed pairs, structured and free-form collaboration achieved the same 51.7\% accuracy and shared a severe false-positive bias. Structure nevertheless reduced generated tokens and latency and provided complete machine-checkable claim lineage. Under controlled faults, it almost always restored an inverted upstream verdict, yet it also retained a standardized false CWE in 93.3\% of cases and copied invalid locations more often than the alternatives.
+
+The central lesson is that structured communication is an amplifier of process discipline, not an assurance of evidence quality. It can make correct information easier to preserve and inspect, but it can also make a plausible false claim easier to propagate. Reliable agentic security analysis therefore requires schemas plus independent verification, bounded abstention, and benchmarks that examine the trajectory of evidence rather than only the final verdict.

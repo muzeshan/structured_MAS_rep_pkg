@@ -1,0 +1,17 @@
+dataset:
+  name: secvuleval
+  hf_dataset_id: arag0rn/SecVulEval
+  hf_revision: bde3e7c3225cc61c9ad727133737255428a2ea3d
+  hf_split: train
+  output_dir: data/prepared/secvuleval
+  max_pairs: 260
+  development_pairs: 30
+  annotation_pairs: 40
+  fault_pairs: 80
+  cross_model_pairs: 50
+  stability_pairs: 40
+  max_per_project: 1
+  min_code_lines: 4
+  max_code_lines: 300
+  max_code_chars: 12000
+  seed: 20260712

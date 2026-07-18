@@ -1,0 +1,29 @@
+experiment:
+  prepared_pairs: data/prepared/secvuleval/development_pairs_eligible.jsonl
+  output_dir: outputs/development_frozen_v3_qwen3b
+  systems:
+    - self_refine
+    - freeform_mas
+    - structured_mas
+  repetitions: 1
+  base_seed: 20260712
+  shard_index: 0
+  num_shards: 1
+  overwrite: false
+  budget:
+    analysis: 340
+    critique: 220
+    adjudication: 480
+  model:
+    backend: transformers
+    model_id: Qwen/Qwen2.5-Coder-3B-Instruct
+    revision: 488639f1ff808d1d3d0ba301aef8c11461451ec5
+    dtype: auto
+    load_in_4bit: true
+    max_input_tokens: 8192
+    batch_size: 1
+    temperature: 0.0
+    top_p: 1.0
+    do_sample: false
+    trust_remote_code: false
+    cache_db: cache/qwen3b_development_frozen_v3.sqlite

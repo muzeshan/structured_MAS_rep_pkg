@@ -1,0 +1,17 @@
+{
+  "dataset": "secvuleval",
+  "hf_dataset_id": "arag0rn/SecVulEval",
+  "hf_revision": "bde3e7c3225cc61c9ad727133737255428a2ea3d",
+  "raw_pairs": 10047,
+  "filtered_pairs": 9369,
+  "selected_pairs": 260,
+  "selected_versions": 520,
+  "selected_projects": 260,
+  "languages": {
+    "c": 194,
+    "cpp": 66
+  },
+  "development_pairs": 30,
+  "eligible_clean_pairs": 29,
+  "seed": 20260712
+}

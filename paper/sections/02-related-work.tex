@@ -1,0 +1,17 @@
+\section{Background and Related Work}
+
+\subsection{Multi-Agent Software Engineering}
+
+LLM-based multi-agent systems use role specialization, iterative review, and orchestration to address software-engineering tasks. He et al. identify communication quality, conflict resolution, misinformation control, and evaluation beyond final artifacts as central research challenges~\cite{he2025road}. MAST empirically organizes multi-agent failures into system-design failures, inter-agent misalignment, and task-verification failures~\cite{cemri2025mast}. SEMAP responds with explicit behavioral contracts, structured messaging, and lifecycle verification~\cite{mao2025semap}. These studies motivate our focus on the representation and verification of intermediate evidence rather than on introducing another role architecture.
+
+Self-Refine is an important baseline because one model generates an answer, critiques it, and revises it without additional training~\cite{madaan2023selfrefine}. Comparing this workflow with role-specialized agents helps separate the effect of distinct roles from the effect of spending three model calls.
+
+\subsection{LLM-Based Vulnerability Analysis}
+
+SecVulEval provides real-world C/C++ vulnerable and fixed functions with statement-level change information and reports that current LLMs remain weak at vulnerability localization with correct reasoning~\cite{ahmed2025secvuleval}. GPTLens separates generation and discrimination to reduce false positives in smart-contract auditing~\cite{hu2023gptlens}. VulAgent uses hypothesis generation and validation for project-level vulnerability analysis~\cite{wang2026vulagent}. MulVul combines a retrieval-augmented router with specialized detector agents and cross-model prompt evolution~\cite{wu2026mulvul}. LAMPS demonstrates role-specialized multi-agent reasoning for malicious-package detection~\cite{zeshan2026lamps}. Collectively, this work establishes that critic and validator roles are common in agentic security analysis. Our contribution is not the first multi-agent detector; it is the controlled isolation of handoff format and the measurement of evidence propagation.
+
+\subsection{Fault Injection and Resilience}
+
+Huang et al. inject faulty agent messages and show that challenge and inspection mechanisms can improve resilience~\cite{huang2025resilience}. MAS-FIRE systematizes intra-agent and inter-agent fault types and evaluates how architectures recover from modified prompts, responses, and routing~\cite{jia2026masfire}. We adapt this idea to vulnerability evidence. The injected conditions target a verdict, the availability of supporting evidence, or a concrete false claim and location. Unlike end-task-only evaluation, our analysis records whether the injected content appears in the final report.
+
+The closest conceptual expectation is that structure should reduce ambiguity and make verification easier. The competing expectation is that schema-compliant misinformation may be treated as authoritative. Our experiment tests both possibilities.

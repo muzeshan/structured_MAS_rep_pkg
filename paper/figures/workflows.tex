@@ -1,0 +1,34 @@
+\begin{tikzpicture}[
+  font=\scriptsize,
+  node distance=4mm and 5mm,
+  box/.style={draw,rounded corners,minimum height=7mm,minimum width=22mm,align=center,inner sep=2mm},
+  hand/.style={draw,dashed,rounded corners,minimum height=7mm,minimum width=22mm,align=center,inner sep=2mm},
+  arr/.style={-Latex,thick},
+  label/.style={font=\bfseries\scriptsize,anchor=east}
+]
+\node[label] (l1) at (0,1.4) {Self-refine};
+\node[box,right=5mm of l1] (s1) {Analysis};
+\node[hand,right=of s1] (s2) {Self-critique};
+\node[box,right=of s2] (s3) {Adjudication};
+\draw[arr] (s1)--(s2); \draw[arr] (s2)--(s3);
+
+\node[label] (l2) at (0,0) {Free-form MAS};
+\node[box,right=5mm of l2] (f1) {Analyst};
+\node[hand,right=of f1] (f2) {Prose handoff};
+\node[box,right=of f2] (f3) {Refuter};
+\node[hand,right=of f3] (f4) {Prose handoff};
+\node[box,right=of f4] (f5) {Adjudicator};
+\draw[arr] (f1)--(f2); \draw[arr] (f2)--(f3); \draw[arr] (f3)--(f4); \draw[arr] (f4)--(f5);
+
+\node[label] (l3) at (0,-1.4) {Structured MAS};
+\node[box,right=5mm of l3] (t1) {Analyst};
+\node[hand,right=of t1] (t2) {Typed claim: ID, span, CWE};
+\node[box,right=of t2] (t3) {Refuter};
+\node[hand,right=of t3] (t4) {Typed decision};
+\node[box,right=of t4] (t5) {Adjudicator};
+\draw[arr] (t1)--(t2); \draw[arr] (t2)--(t3); \draw[arr] (t3)--(t4); \draw[arr] (t4)--(t5);
+
+\node[draw,fill=white,rounded corners,align=center,inner sep=2mm,below=7mm of f3] (fault) {RQ3 mutation: verdict inversion, evidence deletion, or evidence corruption};
+\draw[-Latex,densely dotted,thick] (fault.north west) to[bend left=25] (f2.south);
+\draw[-Latex,densely dotted,thick] (fault.north east) to[bend right=25] (t2.south);
+\end{tikzpicture}

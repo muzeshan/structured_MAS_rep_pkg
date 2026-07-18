@@ -1,0 +1,8 @@
+analysis:
+  main_results: outputs/mock_main
+  fault_results: outputs/mock_faults
+  pairs_path: sample_data/synthetic_pairs.jsonl
+  annotation_path: null
+  output_dir: results/mock
+  bootstrap_iterations: 200
+  seed: 20260712

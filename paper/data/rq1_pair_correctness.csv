@@ -1,0 +1,4 @@
+system,pairs,correct_pairs,pair_correct_rate
+freeform_mas,29,2,0.06896551724137931
+self_refine,29,3,0.10344827586206896
+structured_mas,29,1,0.034482758620689655

@@ -1,0 +1,36 @@
+{
+  "clean_records": 174,
+  "rq3_records": 270,
+  "rq3_final_parse_failures": 1,
+  "rq3_stage_failures": 3,
+  "clean_cochran_q": {
+    "statistic": 0.6153846153846154,
+    "df": 2,
+    "p_value": 0.7351414805916845
+  },
+  "free_structured_prediction_agreement": {
+    "count": 54,
+    "n": 58,
+    "rate": 0.9310344827586207,
+    "free_only_correct": 2,
+    "structured_only_correct": 2,
+    "exact_mcnemar_p": 1.0
+  },
+  "rq2_totals": {
+    "analyst_claims": 56.0,
+    "refuter_decisions": 58.0,
+    "final_findings": 55.0,
+    "analyst_claim_ids": 56.0,
+    "decision_claim_ids": 58.0,
+    "final_source_claim_ids": 55.0,
+    "traceable_final_claim_ids": 55.0,
+    "unsupported_final_claim_ids": 0.0,
+    "supported_decisions": 57.0,
+    "refuted_decisions": 1.0,
+    "corrected_decisions": 0.0,
+    "uncertain_decisions": 0.0,
+    "analyst_parse_failed": 0.0,
+    "refuter_parse_failed": 0.0,
+    "final_parse_failed": 0.0
+  }
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "pair_id": "secvuleval::15308::e753a7013efd",
+    "decision": "exclude",
+    "category": "invalid_for_function_only",
+    "reason": "The CWE-59 filesystem and symbolic-link behavior is implemented in unseen helper functions. The supplied function exposes calls to those helpers but not enough local evidence to establish the vulnerability or repair from the function body alone."
+  }
+]

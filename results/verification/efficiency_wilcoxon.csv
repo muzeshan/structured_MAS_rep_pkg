@@ -1,0 +1,7 @@
+metric,first,second,median_difference,mean_difference,statistic,p_value
+total_completion_tokens,structured_mas,freeform_mas,-190.5,-182.94827586206895,9.0,5.6008330188400855e-11
+total_completion_tokens,structured_mas,self_refine,-198.0,-176.79310344827587,37.5,2.39732471236973e-10
+total_completion_tokens,freeform_mas,self_refine,-4.0,6.155172413793103,847.0,0.9475273613783433
+total_seconds,structured_mas,freeform_mas,-16.398287836998854,-15.15929945998273,6.0,4.796327819478128e-11
+total_seconds,structured_mas,self_refine,-16.725402329998587,-14.759143689172365,40.0,2.721165565533036e-10
+total_seconds,freeform_mas,self_refine,-0.6005648109999129,0.40015577081036413,834.0,0.867794580200532

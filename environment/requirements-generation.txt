@@ -1,0 +1,9 @@
+-e .
+torch>=2.3
+transformers>=4.44,<5
+accelerate>=0.33,<2
+bitsandbytes>=0.43,<1
+huggingface-hub>=0.24,<2
+datasets>=2.20,<5
+sentencepiece>=0.2,<1
+safetensors>=0.4,<1

@@ -1,0 +1,10 @@
+system,fault,clean_accuracy_selected,fault_accuracy,accuracy_drop,clean_only_correct,fault_only_correct,exact_mcnemar_p
+freeform_mas,evidence_corruption,0.4666666666666667,0.5333333333333333,-0.06666666666666665,10,12,0.8318119049072266
+freeform_mas,evidence_deletion,0.4666666666666667,0.43333333333333335,0.033333333333333326,11,10,1.0
+freeform_mas,verdict_inversion,0.4666666666666667,0.43333333333333335,0.033333333333333326,6,5,1.0
+self_refine,evidence_corruption,0.5,0.43333333333333335,0.06666666666666665,11,9,0.8238029479980469
+self_refine,evidence_deletion,0.5,0.43333333333333335,0.06666666666666665,6,4,0.75390625
+self_refine,verdict_inversion,0.5,0.5333333333333333,-0.033333333333333326,4,5,1.0
+structured_mas,evidence_corruption,0.5,0.43333333333333335,0.06666666666666665,2,0,0.5
+structured_mas,evidence_deletion,0.5,0.5,0.0,0,0,1.0
+structured_mas,verdict_inversion,0.5,0.5,0.0,0,0,1.0

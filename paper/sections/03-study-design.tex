@@ -1,0 +1,41 @@
+\section{Study Design}
+
+\subsection{Dataset and Eligibility}
+
+We use vulnerable--fixed C/C++ function pairs prepared from SecVulEval~\cite{ahmed2025secvuleval}. The deterministic preparation configuration used seed 20260712, retained at most one pair per project, and accepted functions containing 4--300 lines and at most 12,000 characters. The development split contained 30 pairs. One pair (CVE-2020-15861, CWE-59) was excluded after a function-only eligibility audit: the security-relevant filesystem and symbolic-link behavior was implemented in unseen callees, while the supplied function exposed only calls to those helpers. The measured clean sample therefore contains 29 projects, 58 code versions, and 174 workflow executions.
+
+The agents receive only the numbered function body. Project names, labels, CVE/CWE metadata, commit messages, and changed-line annotations are withheld. The fixed counterpart is interpreted as the version in which the target vulnerability was reportedly repaired, not as globally vulnerability-free. Changed lines are used only as a localization proxy.
+
+\subsection{Compared Workflows}
+
+Figure~\ref{fig:workflows} summarizes the three workflows.
+
+\begin{figure*}[t]
+  \centering
+  \input{figures/workflows}
+  \Description{Three matched three-call workflows: self-refinement, free-form analyst-refuter-adjudicator, and structured analyst-refuter-adjudicator, with upstream fault injection before the critique or refutation stage.}
+  \caption{Matched three-call workflows and the corrected fault-injection point. Free-form and structured MAS use identical roles; only the handoff representation differs.}
+  \label{fig:workflows}
+\end{figure*}
+
+\textbf{Self-refinement} uses one model identity for initial analysis, critique, and final adjudication. \textbf{Free-form MAS} uses analyst, refuter, and adjudicator roles exchanging prose. \textbf{Structured MAS} uses the same three roles, but the analyst emits a typed claim containing an identifier, statement, optional line span and CWE, source/sink information, guard status, consequence, and confidence. The refuter returns a decision for the claim, and each final finding names its source claim.
+
+All workflows use Qwen2.5-Coder-3B-Instruct~\cite{hui2024qwen25coder}, pinned to revision \texttt{488639f1ff808d1d3d0ba301aef8c11461451ec5}. Inference uses Transformers with 4-bit loading on an NVIDIA T4, an 8,192-token input limit, and deterministic greedy decoding (\texttt{do\_sample=false}). Each workflow makes three calls with stage ceilings of 340, 220, and 480 completion tokens. Final reports share one strict JSON schema. A malformed final report counts as failure rather than being rescued by keyword heuristics.
+
+\subsection{Protocol Development}
+
+An initial 30-pair pilot exposed verbosity and JSON truncation, especially in adjudication. We reduced each report to at most one principal claim/finding, constrained spans and CWE enumeration, and redistributed the fixed 1,040-token completion ceiling. A 10-pair failure-focused stress subset was used to validate the repaired protocol. We then froze the prompts and budgets before the 29-pair clean run. This procedure improves execution reliability but makes the reported sample development data; Section~\ref{sec:threats} discusses the resulting validity limitation.
+
+\subsection{Measures and Analysis}
+
+For \textbf{RQ1}, version accuracy is the proportion of vulnerable and fixed functions classified correctly. Pair correctness requires both versions of a pair to be correct. We additionally report vulnerable recall, fixed-version accuracy, false-positive rate, completion tokens, latency, and parsing failures. We use Cochran's $Q$ for the three paired workflows, exact McNemar tests for pairwise correctness~\cite{cochran1950,mcnemar1947}, and paired Wilcoxon signed-rank tests for efficiency~\cite{wilcoxon1945}; pairwise $p$-values are Holm-adjusted where stated~\cite{holm1979}.
+
+For \textbf{RQ2}, the structured records permit automatic checks of claim-ID lineage, unsupported final references, parser validity, and refuter decisions. These are integrity and auditability measures, not a substitute for human judgment of semantic correctness.
+
+For \textbf{RQ3}, we deterministically selected the first 15 lexicographically sorted eligible pair IDs (30 versions). We reused each clean upstream analysis, converted it into a canonical one-claim representation, and injected three faults before rerunning only the critic/refuter and adjudicator:
+\begin{itemize}
+  \item \emph{verdict inversion}: replace the upstream verdict with its opposite; an uncertain verdict is deterministically replaced with vulnerable;
+  \item \emph{evidence deletion}: retain the verdict but remove all claims and supporting evidence; and
+  \item \emph{evidence corruption}: replace the support with a fabricated CWE-787 claim and a span 50--51 lines beyond the function.
+\end{itemize}
+For prose workflows, the mutated record is serialized into canonical text; Structured MAS receives the equivalent JSON. The 270 resulting records comprise $15\times2\times3\times3$ conditions. Direct propagation measures include restoration of the pre-fault verdict, following the injected verdict, retaining CWE-787, and copying the exact invalid span. Wilson intervals accompany key proportions.
